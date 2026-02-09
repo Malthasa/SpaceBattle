@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://dolxwbruup0vv"]
+
+[ext_resource type="PackedScene" uid="uid://dapfx52pe8khd" path="res://ship.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://4aah0tx1rpar" path="res://world.gd" id="1_fj7yv"]
+[ext_resource type="Shader" uid="uid://b1qspx2g5r307" path="res://background.gdshader" id="3_aqk2v"]
+[ext_resource type="Texture2D" uid="uid://cxaqugbm6qw0u" path="res://spacebg.png" id="4_036b0"]
+[ext_resource type="Texture2D" uid="uid://bv4xst7ukjc0t" path="res://spacebg2.png" id="4_dwbse"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwbse"]
+shader = ExtResource("3_aqk2v")
+shader_parameter/background_texture = ExtResource("4_dwbse")
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/parallax_factor = 1.0
+shader_parameter/camera_position = Vector2(0, 0)
+
+[node name="world" type="Node2D" unique_id=1668417862]
+script = ExtResource("1_fj7yv")
+
+[node name="Ship" parent="." unique_id=983994474 instance=ExtResource("1_f3sb7")]
+position = Vector2(0, 185)
+ID = 1
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1990573332]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_speed = 20.0
+
+[node name="BG" type="TextureRect" parent="Camera2D" unique_id=93099576]
+z_index = -1
+material = SubResource("ShaderMaterial_dwbse")
+offset_left = -639.0
+offset_top = -458.0
+offset_right = 568.0
+offset_bottom = 501.0
+texture = ExtResource("4_036b0")
+stretch_mode = 1
+
+[node name="HealthBG2" type="ColorRect" parent="Camera2D" unique_id=1498047036]
+offset_left = 174.09
+offset_top = -211.0
+offset_right = 374.0901
+offset_bottom = -198.0
+
+[node name="Health" type="ColorRect" parent="Camera2D/HealthBG2" unique_id=1094925565]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 13.0
+color = Color(1, 0, 0, 1)
+
+[node name="HealthBG1" type="ColorRect" parent="Camera2D" unique_id=431837328]
+offset_left = -374.0
+offset_top = -211.0
+offset_right = -174.0
+offset_bottom = -198.0
+
+[node name="Health" type="ColorRect" parent="Camera2D/HealthBG1" unique_id=1721327013]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 13.0
+color = Color(1, 0, 0, 1)
+
+[node name="Ship2" parent="." unique_id=1983809517 instance=ExtResource("1_f3sb7")]
+modulate = Color(1, 0.5336117, 0.4686132, 1)
+position = Vector2(0, -180)

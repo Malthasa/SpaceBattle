@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dapfx52pe8khd"]
+
+[ext_resource type="Script" uid="uid://cpcdlidisf6f4" path="res://ship.gd" id="1_4cq66"]
+[ext_resource type="Texture2D" uid="uid://cpnt47is5pavq" path="res://ship.png" id="2_4cq66"]
+[ext_resource type="Texture2D" uid="uid://332cxuo4ulv4" path="res://arrow.png" id="3_v4325"]
+[ext_resource type="Script" uid="uid://d03gb2mrdrs3" path="res://usercode.gd" id="4_c3vuw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3vuw"]
+size = Vector2(12, 27)
+
+[sub_resource type="Gradient" id="Gradient_c3vuw"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_78o8j"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78o8j"]
+size = Vector2(20, 31)
+
+[node name="Ship" type="CharacterBody2D" unique_id=1983809517 groups=["Objects"]]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_4cq66")
+
+[node name="Shuttle" type="Sprite2D" parent="." unique_id=154319432]
+texture_filter = 1
+texture = ExtResource("2_4cq66")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1427092251]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_c3vuw")
+
+[node name="Left Thruster" type="CPUParticles2D" parent="." unique_id=70292176]
+position = Vector2(-9.005, 4.995)
+emitting = false
+amount = 16
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(0, 1)
+spread = 33.4
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+color_ramp = SubResource("Gradient_c3vuw")
+
+[node name="Right Thruster" type="CPUParticles2D" parent="." unique_id=758201055]
+position = Vector2(9.095, 5.065)
+emitting = false
+amount = 16
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(0, 1)
+spread = 33.4
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+color_ramp = SubResource("Gradient_78o8j")
+
+[node name="Middle Thruster" type="CPUParticles2D" parent="." unique_id=388401568]
+position = Vector2(0, 13.145)
+emitting = false
+amount = 38
+lifetime = 0.3
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(3, 1)
+direction = Vector2(0, 1)
+spread = 16.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 15.6
+initial_velocity_max = 30.35
+color_ramp = SubResource("Gradient_78o8j")
+
+[node name="Laser" type="Sprite2D" parent="." unique_id=969306095]
+texture_filter = 1
+texture = ExtResource("3_v4325")
+offset = Vector2(0, -18)
+
+[node name="CodeObject" type="Node" parent="." unique_id=1748266880]
+script = ExtResource("4_c3vuw")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1152895338]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=882158729]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_78o8j")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
