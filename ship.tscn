@@ -25,6 +25,8 @@ script = ExtResource("1_4cq66")
 [node name="Shuttle" type="Sprite2D" parent="." unique_id=154319432]
 texture_filter = 1
 texture = ExtResource("2_4cq66")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1427092251]
 position = Vector2(0, -0.5)

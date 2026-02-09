@@ -12,14 +12,14 @@ var external_ref
 func run():
 	var angle = external_ref.angle_to_enemy()
 	if angle < 180 && angle > 0:
-		external_ref.leftthruster(1)
+		external_ref.leftthruster(0.6)
 	elif angle == 0:
 		external_ref.leftthruster(1)
 		external_ref.rightthruster(1)
 		external_ref.midthruster(1)
 		external_ref.shoot()
 	else:
-		external_ref.rightthruster(1)
+		external_ref.rightthruster(0.6)
 """
 var p2script = """
 extends RefCounted

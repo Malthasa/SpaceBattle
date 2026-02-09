@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://cctcljx4kyvkf"]
 
 [ext_resource type="Script" uid="uid://dmap1xpe16rn2" path="res://bullet.gd" id="1_v8qja"]
-[ext_resource type="Texture2D" uid="uid://332cxuo4ulv4" path="res://arrow.png" id="2_t4vbm"]
+[ext_resource type="Texture2D" uid="uid://ctpmokgjlb7s8" path="res://bullet.png" id="2_v8qja"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v8qja"]
+friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2b2rl"]
 size = Vector2(4, 4)
@@ -12,11 +15,14 @@ size = Vector2(2, 1)
 [node name="Bullet" type="RigidBody2D" unique_id=1917716600]
 collision_layer = 0
 collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_v8qja")
 gravity_scale = 0.0
 script = ExtResource("1_v8qja")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1469142642]
-texture = ExtResource("2_t4vbm")
+texture = ExtResource("2_v8qja")
+region_enabled = true
+region_rect = Rect2(0, 0, 1, 9)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=171315636]
 

@@ -8,12 +8,16 @@ var bullet = preload("res://bullet.tscn")
 @export var ID: int
 @onready var g = globaldata
 var eid
+var cooldown = 0
 
 func _ready() -> void:
+	$Shuttle.region_rect.position.x = ID * 32
 	if ID == 0:
 		eid = 1
+		position = Vector2(randi_range(-500,500), randi_range(-200,-50))
 	else:
 		eid = 0
+		position = Vector2(randi_range(-500,500), randi_range(200,50))
 	set_collision_layer_value(ID+1, false)
 	set_collision_mask_value(ID+1, false)
 
@@ -21,10 +25,13 @@ func _physics_process(delta: float) -> void:
 	# Call Function to run the user-generated script
 	$CodeObject.update()
 	
+	if cooldown > 0:
+		cooldown -= delta
+	
 	rotation_degrees += rotation_vel * delta
 	velocity.x = lerp(velocity.x, 0.0, 0.01)
 	velocity.y = lerp(velocity.y, 0.0, 0.01)
-	rotation_vel = lerp(rotation_vel, 0.0, 0.02)
+	rotation_vel = lerp(rotation_vel, 0.0, 0.01)
 	
 	if g.hp[ID] <= 0:
 		queue_free()
@@ -90,16 +97,21 @@ func turnlaser(dir):
 		return
 
 func shoot():
+	if cooldown > 0:
+		print(ID," is still on cooldown")
+		return
+	# Instantiate Bullet, set Variables
 	var b = bullet.instantiate()
-	b.position = position + Vector2(0,-40).rotated(rotation + $Laser.rotation)
-	b.linear_velocity = Vector2(0,-150).rotated(rotation + $Laser.rotation) + velocity * 1.3
+	b.position = position + Vector2(0,-40).rotated($Laser.global_rotation)
+	b.linear_velocity = Vector2(0,-300).rotated(rotation + $Laser.rotation) + velocity * 2
 	b.rotation = rotation + $Laser.rotation
 	b.ID = ID
-	
 	get_parent().add_child(b)
+	# Reset Cooldown
+	cooldown = 0.3
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	var b = area.get_parent()
 	if !b.is_in_group("Objects") && b.ID != ID:
 		b.queue_free()
-		#g.hp[ID] -= 1
+		g.hp[ID] -= 1

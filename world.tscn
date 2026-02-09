@@ -10,7 +10,7 @@
 shader = ExtResource("3_aqk2v")
 shader_parameter/background_texture = ExtResource("4_dwbse")
 shader_parameter/texture_scale = Vector2(1, 1)
-shader_parameter/parallax_factor = 1.0
+shader_parameter/parallax_factor = 2.0
 shader_parameter/camera_position = Vector2(0, 0)
 
 [node name="world" type="Node2D" unique_id=1668417862]
@@ -22,6 +22,7 @@ ID = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1990573332]
 zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
 [node name="BG" type="TextureRect" parent="Camera2D" unique_id=93099576]
@@ -59,5 +60,4 @@ offset_bottom = 13.0
 color = Color(1, 0, 0, 1)
 
 [node name="Ship2" parent="." unique_id=1983809517 instance=ExtResource("1_f3sb7")]
-modulate = Color(1, 0.5336117, 0.4686132, 1)
 position = Vector2(0, -180)
