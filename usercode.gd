@@ -64,3 +64,6 @@ func angle_to_enemy():
 	
 func midthruster(power):
 	get_parent().midthruster(power)
+	
+func get_energy():
+	get_parent().get_energy()

@@ -9,6 +9,7 @@ var bullet = preload("res://bullet.tscn")
 @onready var g = globaldata
 var eid
 var cooldown = 0
+@export var energy = 1000
 
 func _ready() -> void:
 	$Shuttle.region_rect.position.x = ID * 32
@@ -22,7 +23,7 @@ func _ready() -> void:
 	set_collision_mask_value(ID+1, false)
 
 func _physics_process(delta: float) -> void:
-	# Call Function to run the user-generated script
+	# Call Function to run the user-generated script (I'm not entirely sure why I've done this in a seperate Script)
 	$CodeObject.update()
 	
 	if cooldown > 0:
@@ -35,6 +36,11 @@ func _physics_process(delta: float) -> void:
 	
 	if g.hp[ID] <= 0:
 		queue_free()
+	
+	# Recharge energy
+	energy += delta*120
+	if ID == 0:
+		print(energy)
 	
 	# Update Position in the Singleton
 	g.shippos[ID] = position
@@ -62,27 +68,30 @@ func dist_to_enemy():
 	
 
 func midthruster(power):
-	if power > 1:
+	if power > 1 or energy < 10:
 		print("Warning: Invalid Power on the middle thruster")
 		return
 	$"Middle Thruster".emitting = true
 	velocity += Vector2(0,-5*power).rotated(rotation)
+	energy -= 10
 
 func leftthruster(power):
-	if power > 1:
+	if power > 1 or energy < 1:
 		print("Warning: Invalid Power on the left thruster")
 		return
 	$"Left Thruster".emitting = true
 	rotation_vel += 5*power
 	velocity += Vector2(0,-2*power).rotated(rotation)
+	energy -= 1
 
 func rightthruster(power):
-	if power > 1:
+	if power > 1 or energy < 1:
 		print("Warning: Invalid Power on the left thruster")
 		return
 	$"Right Thruster".emitting = true
 	rotation_vel -= 5*power
 	velocity += Vector2(0,-2*power).rotated(rotation)
+	energy -= 1
 
 func laser_rotation():
 	return floor(fmod($Laser.rotation_degrees, 360))
@@ -97,8 +106,8 @@ func turnlaser(dir):
 		return
 
 func shoot():
-	if cooldown > 0:
-		print(ID," is still on cooldown")
+	if cooldown > 0 or energy < 15:
+		#print(ID," is still on cooldown")
 		return
 	# Instantiate Bullet, set Variables
 	var b = bullet.instantiate()
@@ -109,9 +118,13 @@ func shoot():
 	get_parent().add_child(b)
 	# Reset Cooldown
 	cooldown = 0.3
+	energy -= 15
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	var b = area.get_parent()
 	if !b.is_in_group("Objects") && b.ID != ID:
 		b.queue_free()
 		g.hp[ID] -= 1
+
+func get_energy():
+	return energy

@@ -16,7 +16,7 @@ func run():
 	elif angle == 0:
 		external_ref.leftthruster(1)
 		external_ref.rightthruster(1)
-		external_ref.midthruster(1)
+		#external_ref.midthruster(1)
 		external_ref.shoot()
 	else:
 		external_ref.rightthruster(0.6)
