@@ -16,16 +16,19 @@ func run():
 		external_ref.turnlaser(1)
 """
 
+var userscript
+var instance
+
 func run_dynamic_code():
-	var script = GDScript.new()
-	script.source_code = script_code
-	script.reload()
+	userscript = GDScript.new()
+	userscript.source_code = script_code
+	userscript.reload()
 	
 	# Create instance and inject reference
-	var instance = RefCounted.new()
-	instance.set_script(script)
+	instance = RefCounted.new()
+	instance.set_script(userscript)
 	instance.external_ref = self
-	instance.run()
+	#instance.run()
 	
 
 func _ready():
@@ -33,7 +36,7 @@ func _ready():
 		script_code = globaldata.p1script
 	else:
 		script_code = globaldata.p2script
-	#run_dynamic_code()
+	run_dynamic_code()
 
 func testscript():
 	if angle_to_enemy() < 180 && angle_to_enemy() > 0:
@@ -42,7 +45,8 @@ func testscript():
 		rightthruster(0.5)
 
 func update():
-	run_dynamic_code()
+	#run_dynamic_code()
+	instance.run()
 	
 func leftthruster(power):
 	get_parent().leftthruster(power)

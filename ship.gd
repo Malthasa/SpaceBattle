@@ -39,8 +39,6 @@ func _physics_process(delta: float) -> void:
 	
 	# Recharge energy
 	energy += delta*120
-	if ID == 0:
-		print(energy)
 	
 	# Update Position in the Singleton
 	g.shippos[ID] = position
