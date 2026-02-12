@@ -30,8 +30,8 @@ func _physics_process(delta: float) -> void:
 		cooldown -= delta
 	
 	rotation_degrees += rotation_vel * delta
-	velocity.x = lerp(velocity.x, 0.0, 0.01)
-	velocity.y = lerp(velocity.y, 0.0, 0.01)
+	velocity.x = lerp(velocity.x, 0.0, 0.02)
+	velocity.y = lerp(velocity.y, 0.0, 0.02)
 	rotation_vel = lerp(rotation_vel, 0.0, 0.01)
 	
 	if g.hp[ID] <= 0:
@@ -67,7 +67,7 @@ func dist_to_enemy():
 
 func midthruster(power):
 	if power > 1 or energy < 10:
-		print("Warning: Invalid Power on the middle thruster")
+		#print("Warning: Invalid Power on the middle thruster")
 		return
 	$"Middle Thruster".emitting = true
 	velocity += Vector2(0,-5*power).rotated(rotation)
@@ -75,7 +75,7 @@ func midthruster(power):
 
 func leftthruster(power):
 	if power > 1 or energy < 1:
-		print("Warning: Invalid Power on the left thruster")
+		#print("Warning: Invalid Power on the left thruster")
 		return
 	$"Left Thruster".emitting = true
 	rotation_vel += 5*power
@@ -84,7 +84,7 @@ func leftthruster(power):
 
 func rightthruster(power):
 	if power > 1 or energy < 1:
-		print("Warning: Invalid Power on the left thruster")
+		#print("Warning: Invalid Power on the left thruster")
 		return
 	$"Right Thruster".emitting = true
 	rotation_vel -= 5*power

@@ -10,7 +10,6 @@ extends RefCounted
 var external_ref
 
 func run():
-	print(test)
 	var angle = external_ref.angle_to_enemy()
 	if angle < 180 && angle > 0:
 		external_ref.leftthruster(0.6)
