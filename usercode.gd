@@ -1,25 +1,11 @@
 extends Node
 
-var script_code = """
-extends RefCounted
-
-var external_ref
-
-func run():
-	if Input.is_action_pressed("leftt"):
-		external_ref.leftthruster(1)
-	if Input.is_action_pressed("rightt"):
-		external_ref.rightthruster(1)
-	if Input.is_action_pressed("laserleft"):
-		external_ref.turnlaser(-1)
-	if Input.is_action_pressed("laserright"):
-		external_ref.turnlaser(1)
-"""
+var script_code
 
 var userscript
 var instance
 
-func run_dynamic_code():
+func compile_dynamic_code():
 	userscript = GDScript.new()
 	userscript.source_code = script_code
 	userscript.reload()
@@ -28,6 +14,7 @@ func run_dynamic_code():
 	instance = RefCounted.new()
 	instance.set_script(userscript)
 	instance.external_ref = self
+	
 	#instance.run()
 	
 
@@ -36,7 +23,7 @@ func _ready():
 		script_code = globaldata.p1script
 	else:
 		script_code = globaldata.p2script
-	run_dynamic_code()
+	compile_dynamic_code()
 
 func testscript():
 	if angle_to_enemy() < 180 && angle_to_enemy() > 0:
