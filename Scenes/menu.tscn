@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://b8iye0ys0erx4"]
+
+[ext_resource type="Script" uid="uid://bc2swso7jh1dx" path="res://Scripts/menu.gd" id="1_lti8b"]
+
+[sub_resource type="Theme" id="Theme_vsb4k"]
+default_font_size = 11
+
+[node name="Menu" type="Control" unique_id=318195592]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lti8b")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1794200113]
+
+[node name="BoxContainer" type="VBoxContainer" parent="." unique_id=1291654647]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -57.0
+offset_right = -576.0
+offset_bottom = -325.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer" unique_id=661441228]
+layout_mode = 2
+text = "SPACE PROTOTYPE"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer" unique_id=1779702471]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="P1" type="CodeEdit" parent="BoxContainer/HBoxContainer" unique_id=483571061]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_vsb4k")
+text = "extends RefCounted
+
+var e
+
+# Funktionen werden aufgerufen mit e.funktion()
+
+func run():
+	pass"
+placeholder_text = "Player 1"
+highlight_all_occurrences = true
+draw_tabs = true
+code_completion_enabled = true
+
+[node name="Start" type="Button" parent="BoxContainer/HBoxContainer" unique_id=886339200]
+layout_mode = 2
+size_flags_vertical = 0
+text = "START GAME ?"
+
+[node name="P2" type="CodeEdit" parent="BoxContainer/HBoxContainer" unique_id=520873044]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_vsb4k")
+text = "extends RefCounted
+
+var e
+
+# Funktionen werden aufgerufen mit e.funktion()
+
+func run():
+	pass"
+placeholder_text = "Player 2 Code"
+draw_tabs = true
+
+[connection signal="pressed" from="BoxContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]
